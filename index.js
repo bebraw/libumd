@@ -8,6 +8,10 @@ var EventEmitter = require('events').EventEmitter,
     path = require('path');
 
 var UMD = function UMD(code, options) {
+    if(!code) {
+        throw new Error('Missing code to convert!');
+    }
+
     EventEmitter.call(this);
     this.code = code;
     this.options = options || {};

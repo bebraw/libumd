@@ -12,6 +12,7 @@ var UMD = require('../');
 module.exports = function() {
     triggered({});
     triggered();
+    warning();
 };
 
 function triggered(options) {
@@ -27,6 +28,16 @@ function triggered(options) {
         });
 
         assert(triggered);
+    });
+}
+
+function warning() {
+    assert.throws(function() {
+        var umd = new UMD();
+    }, function(err) {
+        if(err instanceof Error) {
+            return true;
+        }
     });
 }
 
