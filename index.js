@@ -12,7 +12,7 @@ var UMD = function UMD(code, options) {
     this.code = code;
     this.options = options || {};
 
-    this.template = this.loadTemplate(options.template);
+    this.template = this.loadTemplate(this.options.template);
 };
 
 inherits(UMD, EventEmitter);

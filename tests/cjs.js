@@ -10,8 +10,13 @@ var UMD = require('../');
 
 
 module.exports = function() {
+    triggered({});
+    triggered();
+};
+
+function triggered(options) {
     read(function(data) {
-        var umd = new UMD(data, {});
+        var umd = new UMD(data, options);
         var code = umd.generate();
 
         var triggered;
@@ -23,7 +28,7 @@ module.exports = function() {
 
         assert(triggered);
     });
-};
+}
 
 function read(cb) {
     var p = path.join(__dirname, 'data', 'demo.js');
