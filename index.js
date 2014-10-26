@@ -1,7 +1,5 @@
 'use strict';
 
-// TODO: extract this into its own npm module.
-
 var EventEmitter = require('events').EventEmitter,
     inherits = require('util').inherits,
     fs = require('fs'),
