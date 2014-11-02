@@ -149,4 +149,8 @@ UMD.extend = function extend(target, source) {
     return target;
 };
 
-module.exports = UMD;
+module.exports = function(code, options) {
+    var u = new UMD(code, options);
+
+    return u.generate();
+};

@@ -6,7 +6,7 @@ var path = require('path');
 
 var localeval = require('localeval');
 
-var UMD = require('../');
+var umdify = require('../');
 
 
 module.exports = function() {
@@ -17,8 +17,7 @@ module.exports = function() {
 
 function triggered(options) {
     read(function(data) {
-        var umd = new UMD(data, options);
-        var code = umd.generate();
+        var code = umdify(data, options);
 
         var triggered;
         localeval(code, {
@@ -33,7 +32,7 @@ function triggered(options) {
 
 function noCode() {
     assert.throws(function() {
-        var umd = new UMD();
+        var umd = umdify();
     }, function(err) {
         if(err instanceof Error) {
             return true;
