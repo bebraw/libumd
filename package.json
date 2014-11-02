@@ -1,6 +1,6 @@
 {
   "name": "libumd",
-  "description": "",
+  "description": "Wraps given JavaScript code with UMD",
   "author": "Juho Vepsalainen <bebraw@gmail.com>",
   "version": "0.1.0",
   "dependencies": {
