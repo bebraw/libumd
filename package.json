@@ -17,6 +17,9 @@
   "bugs": {
     "url": "https://github.com/bebraw/libumd/issues"
   },
+  "scripts": {
+    "test": "node tests"
+  },
   "keywords": [],
   "licenses": [
     {
