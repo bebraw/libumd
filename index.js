@@ -56,23 +56,28 @@ UMD.prototype.loadTemplate = function loadTemplate(filepath) {
     if (filepath) {
         if (exists(filepath)) {
             tplPath = filepath;
-        } else {
+        }
+        else {
             tplPath = path.join(__dirname, 'templates', filepath + '.hbs');
+
             if (!exists(tplPath)) {
                 tplPath = path.join(__dirname, 'templates', filepath);
+
                 if (!exists(tplPath)) {
                     this.emit('error', 'Cannot find template file "' + filepath + '".');
                     return;
                 }
             }
         }
-    } else {
+    }
+    else {
         tplPath = path.join(__dirname, 'templates', 'umd.hbs');
     }
 
     try {
         return handlebars.compile(fs.readFileSync(tplPath, 'utf-8'));
-    } catch (e) {
+    }
+    catch (e) {
         this.emit('error', e.message);
     }
 };

@@ -16,7 +16,7 @@ options (all are optional by default):
 ```js
 {
     indent: '    ', // defaults to '  '
-    template: 'path to template', // defaults to 'umd'
+    template: 'path to template or template name', // defaults to 'umd'
     globalAlias: 'alias', // name of the global variable
     deps: { // dependencies
         'default': ['foo', 'bar'],
@@ -26,6 +26,10 @@ options (all are optional by default):
     }
 }
 ```
+
+## Default Templates
+
+The library comes with a couple of UMD variants. See `/templates`. In addition you may use one of your own as long as it is formatted using Handlebars syntax and follows the same naming conventions as the ones provided with the project.
 
 ## License
 

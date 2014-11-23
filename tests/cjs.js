@@ -12,6 +12,13 @@ var umdify = require('../');
 module.exports = function() {
     triggered({});
     triggered();
+
+    okTemplateName();
+    invalidTemplateName();
+
+    okTemplatePath();
+    invalidTemplatePath();
+
     noCode();
 };
 
@@ -27,6 +34,66 @@ function triggered(options) {
         });
 
         assert(triggered);
+    });
+}
+
+function okTemplateName() {
+    read(function(data) {
+        var code = umdify(data, {
+            template: 'returnExportsGlobal'
+        });
+
+        var triggered;
+        localeval(code, {
+            trigger: function() {
+                triggered = true;
+            }
+        });
+
+        assert(triggered);
+    });
+}
+
+function invalidTemplateName() {
+    read(function(data) {
+        assert.throws(function() {
+            var code = umdify(data, {
+                template: 'foobar'
+            });
+        },
+        Error);
+    });
+}
+
+function okTemplatePath() {
+    read(function(data) {
+        var p = path.join(__dirname, '..', 'templates', 'umd.hbs');
+
+        var code = umdify(data, {
+            template: p
+        });
+
+        var triggered;
+        localeval(code, {
+            trigger: function() {
+                triggered = true;
+            }
+        });
+
+        assert(triggered);
+    });
+}
+
+function invalidTemplatePath() {
+    read(function(data) {
+        var p = path.join(__dirname, '..', 'templates', 'foo');
+
+        assert.throws(function() {
+            var code = umdify(data, {
+                template: p
+            });
+        },
+        Error);
     });
 }
 
