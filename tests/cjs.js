@@ -19,6 +19,8 @@ module.exports = function() {
     okTemplatePath();
     invalidTemplatePath();
 
+    indentAsNumber();
+
     noCode();
 };
 
@@ -94,6 +96,23 @@ function invalidTemplatePath() {
             });
         },
         Error);
+    });
+}
+
+function indentAsNumber() {
+    read(function(data) {
+        var code = umdify(data, {
+            indent: 4
+        });
+
+        var triggered;
+        localeval(code, {
+            trigger: function() {
+                triggered = true;
+            }
+        });
+
+        assert(triggered);
     });
 }
 

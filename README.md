@@ -15,7 +15,7 @@ options (all are optional by default):
 
 ```js
 {
-    indent: '    ', // defaults to '  '
+    indent: 4, // defaults to 2
     template: 'path to template or template name', // defaults to 'umd'
     globalAlias: 'alias', // name of the global variable
     deps: { // dependencies
@@ -26,6 +26,8 @@ options (all are optional by default):
     }
 }
 ```
+
+> Note that indentation does not apply to UMD block, only to the code that it contains
 
 ## Default Templates
 

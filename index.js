@@ -26,21 +26,21 @@ UMD.prototype._getDependencyDefaults = function _getDependencyDefaults() {
 
     return {
         amd: {
-            indent: '      ',
+            indent: 6,
             items: [],
             prefix: '\"',
             separator: ',\n',
             suffix: '\"'
         },
         cjs: {
-            indent: '      ',
+            indent: 6,
             items: [],
             prefix: 'require(\"',
             separator: ',\n',
             suffix: '\")'
         },
         global: {
-            indent: '      ',
+            indent: 6,
             items: [],
             prefix: globalAlias ? globalAlias + '.' : '',
             separator: ',\n',
@@ -84,7 +84,7 @@ UMD.prototype.loadTemplate = function loadTemplate(filepath) {
 
 UMD.prototype.generate = function generate() {
     var options = this.options,
-        indent = this.options.indent,
+        indent = intToIndent(this.options.indent),
         code = this.code,
         extend = UMD.extend,
         ctx = extend({}, options);
@@ -100,7 +100,7 @@ UMD.prototype.generate = function generate() {
 
     var depsOptions = extend(this._getDependencyDefaults(options) || {}, options.deps);
 
-    var defaultIndent = indent || '  ',
+    var defaultIndent = indent || 2,
         defaultDeps = depsOptions['default'],
         deps = defaultDeps ? defaultDeps || defaultDeps.items || [] : [],
         dependency,
@@ -113,8 +113,8 @@ UMD.prototype.generate = function generate() {
 
     for (dependencyType in depsOptions) {
         dependency = depsOptions[dependencyType];
-        dependencyIndent = typeof dependency.indent !== 'undefined' ? dependency.indent :
-            defaultIndent;
+        dependencyIndent = typeof dependency.indent !== 'undefined' ?
+            intToIndent(dependency.indent) : defaultIndent;
         items = isArray(dependency) ? dependency : dependency.items || deps;
         prefix = dependency.prefix || '';
         separator = dependency.separator || ', ';
@@ -153,6 +153,12 @@ UMD.extend = function extend(target, source) {
 
     return target;
 };
+
+function intToIndent(n) {
+    if(n >= 0) {
+        return Array(n).join(' ');
+    }
+}
 
 module.exports = function(code, options) {
     var u = new UMD(code, options);
