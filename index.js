@@ -114,7 +114,7 @@ UMD.prototype.generate = function generate() {
     for (dependencyType in depsOptions) {
         dependency = depsOptions[dependencyType];
         dependencyIndent = typeof dependency.indent !== 'undefined' ?
-            toIndent(dependency.indent) : defaultIndent;
+            toIndent(dependency.indent) : toIndent(defaultIndent);
         items = is.array(dependency) ? dependency : dependency.items || deps;
         prefix = dependency.prefix || '';
         separator = dependency.separator || ', ';
