@@ -126,7 +126,7 @@ UMD.prototype.generate = function generate() {
     ctx.dependencies = (depsOptions.args || deps).join(', ');
 
     ctx.code = code;
-    ctx.indent = options.indent;
+    ctx.indent = indent;
 
     return this.template(ctx);
 };
