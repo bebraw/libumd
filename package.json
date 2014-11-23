@@ -4,6 +4,7 @@
   "author": "Juho Vepsalainen <bebraw@gmail.com>",
   "version": "0.2.0",
   "dependencies": {
+    "annois": "^0.3.0",
     "handlebars": "^2.0.0"
   },
   "devDependencies": {

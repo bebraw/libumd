@@ -4,7 +4,7 @@ var EventEmitter = require('events').EventEmitter,
     inherits = require('util').inherits,
     fs = require('fs'),
     handlebars = require('handlebars'),
-    isArray = require('util').isArray,
+    is = require('annois'),
     path = require('path');
 
 var UMD = function UMD(code, options) {
@@ -84,7 +84,7 @@ UMD.prototype.loadTemplate = function loadTemplate(filepath) {
 
 UMD.prototype.generate = function generate() {
     var options = this.options,
-        indent = intToIndent(this.options.indent),
+        indent = toIndent(this.options.indent),
         code = this.code,
         extend = UMD.extend,
         ctx = extend({}, options);
@@ -114,8 +114,8 @@ UMD.prototype.generate = function generate() {
     for (dependencyType in depsOptions) {
         dependency = depsOptions[dependencyType];
         dependencyIndent = typeof dependency.indent !== 'undefined' ?
-            intToIndent(dependency.indent) : defaultIndent;
-        items = isArray(dependency) ? dependency : dependency.items || deps;
+            toIndent(dependency.indent) : defaultIndent;
+        items = is.array(dependency) ? dependency : dependency.items || deps;
         prefix = dependency.prefix || '';
         separator = dependency.separator || ', ';
         suffix = dependency.suffix || '';
@@ -154,9 +154,13 @@ UMD.extend = function extend(target, source) {
     return target;
 };
 
-function intToIndent(n) {
-    if(n >= 0) {
-        return Array(n).join(' ');
+function toIndent(n) {
+    if(is.string(n)) {
+        return n;
+    }
+
+    if(is.number(n) && n > 0) {
+        return Array(n + 1).join(' ');
     }
 }
 

@@ -15,7 +15,7 @@ options (all are optional by default):
 
 ```js
 {
-    indent: 4, // defaults to 2
+    indent: 4, // defaults to 2. can be a string as well, ie. '  ' would work
     template: 'path to template or template name', // defaults to 'umd'
     globalAlias: 'alias', // name of the global variable
     deps: { // dependencies

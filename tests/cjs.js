@@ -20,6 +20,7 @@ module.exports = function() {
     invalidTemplatePath();
 
     indentAsNumber();
+    indentAsString();
 
     noCode();
 };
@@ -113,6 +114,19 @@ function indentAsNumber() {
         });
 
         assert(triggered);
+    });
+}
+
+function indentAsString() {
+    read(function(data) {
+        var code = umdify(data, {
+            indent: '    '
+        });
+        var code2 = umdify(data, {
+            indent: 4
+        });
+
+        assert(code === code2);
     });
 }
 
