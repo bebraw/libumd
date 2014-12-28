@@ -61,7 +61,7 @@ function okTemplateName() {
 function invalidTemplateName() {
     read(function(data) {
         assert.throws(function() {
-            var code = umdify(data, {
+            umdify(data, {
                 template: 'foobar'
             });
         },
@@ -93,7 +93,7 @@ function invalidTemplatePath() {
         var p = path.join(__dirname, '..', 'templates', 'foo');
 
         assert.throws(function() {
-            var code = umdify(data, {
+            umdify(data, {
                 template: p
             });
         },
@@ -133,7 +133,7 @@ function indentAsString() {
 
 function noCode() {
     assert.throws(function() {
-        var umd = umdify();
+        umdify();
     }, function(err) {
         if(err instanceof Error) {
             return true;
