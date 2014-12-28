@@ -8,7 +8,9 @@
     "handlebars": "^2.0.0"
   },
   "devDependencies": {
-    "localeval": "^13.12.11"
+    "localeval": "^13.12.11",
+    "smokestack": "^3.0.0",
+    "stream-splitter": "^0.3.0"
   },
   "repository": {
     "type": "git",

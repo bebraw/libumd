@@ -1,12 +1,13 @@
 'use strict';
 
 var assert = require('assert');
-var fs = require('fs');
 var path = require('path');
 
 var localeval = require('localeval');
 
 var umdify = require('../');
+
+var read = require('./utils').read;
 
 
 module.exports = function() {
@@ -137,19 +138,5 @@ function noCode() {
         if(err instanceof Error) {
             return true;
         }
-    });
-}
-
-function read(cb) {
-    var p = path.join(__dirname, 'data', 'demo.js');
-
-    fs.readFile(p, {
-        encoding: 'utf-8'
-    }, function(err, data) {
-        if(err) {
-            return console.error(err);
-        }
-
-        cb(data);
     });
 }
