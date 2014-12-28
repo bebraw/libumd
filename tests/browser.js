@@ -40,7 +40,6 @@ function test(browser) {
 
         var executed = false;
         splitter.on('token', function(token) {
-            console.log(token);
             if(token === 'executed') {
                 executed = true;
             }
