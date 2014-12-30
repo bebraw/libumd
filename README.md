@@ -33,6 +33,10 @@ options (all are optional by default):
 
 The library comes with a couple of UMD variants. See `/templates`. In addition you may use one of your own as long as it is formatted using Handlebars syntax and follows the same naming conventions as the ones provided with the project.
 
+## Contributors
+
+* [Stéphane Bachelier](https://github.com/stephanebachelier) - Use existing `objectToExport` instead of hardcoded value `returnExportsGlobal` for AMD
+
 ## License
 
 `libumd` is available under MIT. See LICENSE for more details.
