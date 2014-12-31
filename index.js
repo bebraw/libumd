@@ -23,27 +23,28 @@ inherits(UMD, EventEmitter);
 
 UMD.prototype._getDependencyDefaults = function _getDependencyDefaults() {
     var globalAlias = this.options.globalAlias;
+    var separator = this.options.separator || ',\n';
 
     return {
         amd: {
             indent: 6,
             items: [],
             prefix: '\"',
-            separator: ',\n',
+            separator: separator,
             suffix: '\"'
         },
         cjs: {
             indent: 6,
             items: [],
             prefix: 'require(\"',
-            separator: ',\n',
+            separator: separator,
             suffix: '\")'
         },
         global: {
             indent: 6,
             items: [],
             prefix: globalAlias ? globalAlias + '.' : '',
-            separator: ',\n',
+            separator: separator,
             suffix: ''
         }
     };
@@ -118,9 +119,12 @@ UMD.prototype.generate = function generate() {
         items = is.array(dependency) ? dependency : dependency.items || deps;
         prefix = dependency.prefix || '';
         separator = dependency.separator || ', ';
+        // add dependency indent only if separator include a line feed
+        if (separator.match(/\r?\n/g)) {
+          separator += dependencyIndent;
+        }
         suffix = dependency.suffix || '';
-        ctx[dependencyType + 'Dependencies'] = items.map(UMD.wrap(prefix, suffix)).join(separator +
-            dependencyIndent);
+        ctx[dependencyType + 'Dependencies'] = items.map(UMD.wrap(prefix, suffix)).join(separator);
     }
 
     ctx.dependencies = (depsOptions.args || deps).join(', ');
