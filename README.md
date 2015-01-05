@@ -20,6 +20,7 @@ options (all are optional by default):
 {
     indent: 4, // defaults to 2. can be a string as well, ie. '  ' would work
     template: 'path to template or template name', // defaults to 'umd'
+    amdModuleId: 'test', // optional AMD module id. defaults to anonymous (not set)
     globalAlias: 'alias', // name of the global variable
     deps: { // dependencies
         'default': ['foo', 'bar'],
