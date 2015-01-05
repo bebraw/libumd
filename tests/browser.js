@@ -11,8 +11,13 @@ var read = require('./utils').read;
 
 
 module.exports = function() {
-    test('chrome');
-    test('firefox');
+    if(process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY) {
+        test('chrome');
+        test('firefox');
+    }
+    else {
+        console.warn('Skipping browser tests, you should set SAUCE_USERNAME and SAUCE_ACCESS_KEY');
+    }
 };
 
 function test(browser) {
