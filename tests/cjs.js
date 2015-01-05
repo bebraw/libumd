@@ -20,9 +20,6 @@ module.exports = function() {
     okTemplatePath();
     invalidTemplatePath();
 
-    indentAsNumber();
-    indentAsString();
-
     noCode();
 };
 
@@ -98,36 +95,6 @@ function invalidTemplatePath() {
             });
         },
         Error);
-    });
-}
-
-function indentAsNumber() {
-    read(function(data) {
-        var code = umdify(data, {
-            indent: 4
-        });
-
-        var triggered;
-        localeval(code, {
-            trigger: function() {
-                triggered = true;
-            }
-        });
-
-        assert(triggered);
-    });
-}
-
-function indentAsString() {
-    read(function(data) {
-        var code = umdify(data, {
-            indent: '    '
-        });
-        var code2 = umdify(data, {
-            indent: 4
-        });
-
-        assert(code === code2);
     });
 }
 

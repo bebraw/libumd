@@ -26,21 +26,18 @@ UMD.prototype._getDependencyDefaults = function _getDependencyDefaults() {
 
     return {
         amd: {
-            indent: 6,
             items: [],
             prefix: '\"',
             separator: ',\n',
             suffix: '\"'
         },
         cjs: {
-            indent: 6,
             items: [],
             prefix: 'require(\"',
             separator: ',\n',
             suffix: '\")'
         },
         global: {
-            indent: 6,
             items: [],
             prefix: globalAlias ? globalAlias + '.' : '',
             separator: ',\n',
@@ -84,28 +81,16 @@ UMD.prototype.loadTemplate = function loadTemplate(filepath) {
 
 UMD.prototype.generate = function generate() {
     var options = this.options,
-        indent = toIndent(this.options.indent),
         code = this.code,
         extend = UMD.extend,
         ctx = extend({}, options);
 
-    if (indent) {
-        code = code.split(/\r?\n/g).map(function (line) {
-            if (!line.trim()) {
-                return '';
-            }
-            return indent + line;
-        }).join(process.platform === 'win32' ? '\r\n' : '\n');
-    }
-
     var depsOptions = extend(this._getDependencyDefaults(options) || {}, options.deps);
 
-    var defaultIndent = indent || 2,
-        defaultDeps = depsOptions['default'],
+    var defaultDeps = depsOptions['default'],
         deps = defaultDeps ? defaultDeps || defaultDeps.items || [] : [],
         dependency,
         dependencyType,
-        dependencyIndent,
         items,
         prefix,
         separator,
@@ -113,20 +98,16 @@ UMD.prototype.generate = function generate() {
 
     for (dependencyType in depsOptions) {
         dependency = depsOptions[dependencyType];
-        dependencyIndent = typeof dependency.indent !== 'undefined' ?
-            toIndent(dependency.indent) : toIndent(defaultIndent);
         items = is.array(dependency) ? dependency : dependency.items || deps;
         prefix = dependency.prefix || '';
         separator = dependency.separator || ', ';
         suffix = dependency.suffix || '';
-        ctx[dependencyType + 'Dependencies'] = items.map(UMD.wrap(prefix, suffix)).join(separator +
-            dependencyIndent);
+        ctx[dependencyType + 'Dependencies'] = items.map(UMD.wrap(prefix, suffix)).join(separator);
     }
 
     ctx.dependencies = (depsOptions.args || deps).join(', ');
 
     ctx.code = code;
-    ctx.indent = indent;
 
     return this.template(ctx);
 };
@@ -153,16 +134,6 @@ UMD.extend = function extend(target, source) {
 
     return target;
 };
-
-function toIndent(n) {
-    if(is.string(n)) {
-        return n;
-    }
-
-    if(is.number(n) && n > 0) {
-        return Array(n + 1).join(' ');
-    }
-}
 
 module.exports = function(code, options) {
     var u = new UMD(code, options);

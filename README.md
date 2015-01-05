@@ -18,7 +18,6 @@ options (all are optional by default):
 
 ```js
 {
-    indent: 4, // defaults to 2. can be a string as well, ie. '  ' would work
     template: 'path to template or template name', // defaults to 'umd'
     amdModuleId: 'test', // optional AMD module id. defaults to anonymous (not set)
     globalAlias: 'alias', // name of the global variable
@@ -31,7 +30,7 @@ options (all are optional by default):
 }
 ```
 
-> Note that indentation does not apply to UMD block, only to the code that it contains
+> Note! `libumd` doesn't guarantee pretty formatting. It is better to use something like [js-beautify](https://www.npmjs.com/package/js-beautify) to deal with that.
 
 ## Default Templates
 
