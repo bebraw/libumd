@@ -1,4 +1,7 @@
 [![build status](https://secure.travis-ci.org/bebraw/libumd.png)](http://travis-ci.org/bebraw/libumd)
+
+[![Sauce Test Status](https://saucelabs.com/buildstatus/libumd)](https://saucelabs.com/u/libumd)
+
 # libumd - Wraps given JavaScript code with UMD
 
 ## Usage

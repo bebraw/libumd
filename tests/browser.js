@@ -32,7 +32,7 @@ function test(browser) {
         var splitter = s.pipe(smokestack({
                 browser: browser,
                 timeout: 15000,
-                saucelabs: false
+                saucelabs: true
             }))
             .pipe(streamSplitter('\n'));
 
