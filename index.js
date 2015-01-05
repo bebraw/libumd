@@ -4,6 +4,7 @@ var EventEmitter = require('events').EventEmitter,
     inherits = require('util').inherits,
     fs = require('fs'),
     handlebars = require('handlebars'),
+    extend = require('xtend'),
     is = require('annois'),
     path = require('path');
 
@@ -82,7 +83,6 @@ UMD.prototype.loadTemplate = function loadTemplate(filepath) {
 UMD.prototype.generate = function generate() {
     var options = this.options,
         code = this.code,
-        extend = UMD.extend,
         ctx = extend({}, options);
 
     var depsOptions = extend(this._getDependencyDefaults(options) || {}, options.deps);
@@ -119,20 +119,6 @@ UMD.wrap = function wrap(pre, post) {
     return function (v) {
         return pre + v + post;
     };
-};
-
-UMD.extend = function extend(target, source) {
-    var prop;
-
-    for (prop in source) {
-        if (prop in target && typeof target[prop] === 'object') {
-            extend(target[prop], source[prop]);
-        } else {
-            target[prop] = source[prop];
-        }
-    }
-
-    return target;
 };
 
 module.exports = function(code, options) {
