@@ -1,12 +1,15 @@
 'use strict';
 
-var EventEmitter = require('events').EventEmitter,
-    inherits = require('util').inherits,
-    fs = require('fs'),
-    handlebars = require('handlebars'),
-    extend = require('xtend'),
-    is = require('annois'),
-    path = require('path');
+var EventEmitter = require('events').EventEmitter;
+var inherits = require('util').inherits;
+var fs = require('fs');
+var path = require('path');
+
+var handlebars = require('handlebars');
+var objectMerge = require('object-merge');
+var is = require('annois');
+var zip = require('annozip');
+
 
 var UMD = function UMD(code, options) {
     if(!code) {
@@ -21,31 +24,6 @@ var UMD = function UMD(code, options) {
 };
 
 inherits(UMD, EventEmitter);
-
-UMD.prototype._getDependencyDefaults = function _getDependencyDefaults() {
-    var globalAlias = this.options.globalAlias;
-
-    return {
-        amd: {
-            items: [],
-            prefix: '\"',
-            separator: ',\n',
-            suffix: '\"'
-        },
-        cjs: {
-            items: [],
-            prefix: 'require(\"',
-            separator: ',\n',
-            suffix: '\")'
-        },
-        global: {
-            items: [],
-            prefix: globalAlias ? globalAlias + '.' : '',
-            separator: ',\n',
-            suffix: ''
-        }
-    };
-};
 
 UMD.prototype.loadTemplate = function loadTemplate(filepath) {
     var tplPath,
@@ -83,34 +61,77 @@ UMD.prototype.loadTemplate = function loadTemplate(filepath) {
 UMD.prototype.generate = function generate() {
     var options = this.options,
         code = this.code,
-        ctx = extend({}, options);
+        ctx = objectMerge({}, options);
 
-    var depsOptions = extend(this._getDependencyDefaults(options) || {}, options.deps);
+    var depsOptions = objectMerge(
+        getDependencyDefaults(this.options.globalAlias),
+        convertDependencyArrays(options.deps) || {}
+    );
 
-    var defaultDeps = depsOptions['default'],
-        deps = defaultDeps ? defaultDeps || defaultDeps.items || [] : [],
-        dependency,
-        dependencyType,
-        items,
-        prefix,
-        separator,
-        suffix;
+    var defaultDeps = depsOptions['default'].items;
+    var deps = defaultDeps ? defaultDeps || defaultDeps.items || [] : [];
+    var dependency, dependencyType, items, prefix, separator, suffix;
 
     for (dependencyType in depsOptions) {
         dependency = depsOptions[dependencyType];
-        items = is.array(dependency) ? dependency : dependency.items || deps;
+        items = dependency.items || defaultDeps || [];
         prefix = dependency.prefix || '';
         separator = dependency.separator || ', ';
         suffix = dependency.suffix || '';
-        ctx[dependencyType + 'Dependencies'] = items.map(UMD.wrap(prefix, suffix)).join(separator);
+        ctx[dependencyType + 'Dependencies'] = {
+            normal: items,
+            wrapped: items.map(UMD.wrap(prefix, suffix)).join(separator),
+        };
     }
 
-    ctx.dependencies = (depsOptions.args || deps).join(', ');
+    ctx.dependencies = deps.join(', ');
 
     ctx.code = code;
 
     return this.template(ctx);
 };
+
+function convertDependencyArrays(deps) {
+    if(!deps) {
+        return;
+    }
+
+    return zip.toObject(zip(deps).map(function(pair) {
+        if(is.array(pair[1])) {
+            return [pair[0], {
+                items: pair[1]
+            }];
+        }
+
+        return pair;
+    }));
+}
+
+function getDependencyDefaults(globalAlias) {
+    return {
+        'default': {
+            items: null,
+        },
+        amd: {
+            items: null,
+            prefix: '\"',
+            separator: ',',
+            suffix: '\"',
+        },
+        cjs: {
+            items: null,
+            prefix: 'require(\"',
+            separator: ',',
+            suffix: '\")',
+        },
+        global: {
+            items: null,
+            prefix: globalAlias? globalAlias + '.': '\"',
+            separator: ',',
+            suffix: '\"',
+        }
+    };
+}
 
 UMD.wrap = function wrap(pre, post) {
     pre = pre || '';

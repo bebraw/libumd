@@ -21,7 +21,7 @@ options (all are optional by default):
     template: 'path to template or template name', // defaults to 'umd'
     amdModuleId: 'test', // optional AMD module id. defaults to anonymous (not set)
     globalAlias: 'alias', // name of the global variable
-    deps: { // dependencies
+    deps: { // dependencies - `default` acts as a fallback for each!
         'default': ['foo', 'bar'],
         amd: ['foobar', 'barbar'],
         cjs: ['foo', 'barbar'],

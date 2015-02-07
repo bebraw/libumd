@@ -20,6 +20,9 @@ module.exports = function() {
     okTemplatePath();
     invalidTemplatePath();
 
+    useDefault();
+    preserveDefault();
+
     noCode();
 };
 
@@ -96,6 +99,33 @@ function invalidTemplatePath() {
         },
         Error);
     });
+}
+
+function useDefault() {
+    var dep = 'foobar';
+    var code = umdify('foo()', {
+        deps: {
+            'default': [dep],
+        },
+    });
+
+    assert(code.indexOf('define(["' + dep + '"]') >= 0);
+    assert(code.indexOf('factory(require("' + dep + '"))') >= 0);
+    assert(code.indexOf('factory(' + dep + ')') >= 0);
+}
+
+function preserveDefault() {
+    var dep = 'foobar';
+    var code = umdify('foo()', {
+        deps: {
+            'default': [dep],
+            'amd': ['baz', 'bar'],
+        },
+    });
+
+    assert(code.indexOf('define(["baz","bar"], function (baz,bar) {') >= 0);
+    assert(code.indexOf('factory(require("' + dep + '"))') >= 0);
+    assert(code.indexOf('factory(' + dep + ')') >= 0);
 }
 
 function noCode() {
