@@ -80,7 +80,7 @@ UMD.prototype.generate = function generate() {
         suffix = dependency.suffix || '';
         ctx[dependencyType + 'Dependencies'] = {
             normal: items,
-            wrapped: items.map(UMD.wrap(prefix, suffix)).join(separator),
+            wrapped: items.map(wrap(prefix, suffix)).join(separator),
         };
     }
 
@@ -90,6 +90,15 @@ UMD.prototype.generate = function generate() {
 
     return this.template(ctx);
 };
+
+function wrap(pre, post) {
+    pre = pre || '';
+    post = post || '';
+
+    return function (v) {
+        return pre + v + post;
+    };
+}
 
 function convertDependencyArrays(deps) {
     if(!deps) {
@@ -132,15 +141,6 @@ function getDependencyDefaults(globalAlias) {
         }
     };
 }
-
-UMD.wrap = function wrap(pre, post) {
-    pre = pre || '';
-    post = post || '';
-
-    return function (v) {
-        return pre + v + post;
-    };
-};
 
 module.exports = function(code, options) {
     var u = new UMD(code, options);
