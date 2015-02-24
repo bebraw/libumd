@@ -5,6 +5,7 @@ var inherits = require('util').inherits;
 var fs = require('fs');
 var path = require('path');
 
+var alphabet = require('alphabet').lower;
 var handlebars = require('handlebars');
 var objectMerge = require('object-merge');
 var is = require('annois');
@@ -80,6 +81,7 @@ UMD.prototype.generate = function generate() {
         suffix = dependency.suffix || '';
         ctx[dependencyType + 'Dependencies'] = {
             normal: items,
+            params: convertToAlphabet(items),
             wrapped: items.map(wrap(prefix, suffix)).join(separator),
         };
     }
@@ -90,6 +92,12 @@ UMD.prototype.generate = function generate() {
 
     return this.template(ctx);
 };
+
+function convertToAlphabet(items) {
+    return items.map(function(_, i) {
+        return alphabet[i] + i;
+    });
+}
 
 function wrap(pre, post) {
     pre = pre || '';

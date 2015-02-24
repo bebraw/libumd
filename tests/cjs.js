@@ -23,6 +23,8 @@ module.exports = function() {
     useDefault();
     preserveDefault();
 
+    convertParametersToAlphabet();
+
     noCode();
 };
 
@@ -123,9 +125,20 @@ function preserveDefault() {
         },
     });
 
-    assert(code.indexOf('define(["baz","bar"], function (baz,bar) {') >= 0);
+    assert(code.indexOf('define(["baz","bar"], function (a0,b1) {') >= 0);
     assert(code.indexOf('factory(require("' + dep + '"))') >= 0);
     assert(code.indexOf('factory(' + dep + ')') >= 0);
+}
+
+function convertParametersToAlphabet() {
+    var code = umdify('foo()', {
+        deps: {
+            'default': ['foobar'],
+            'amd': ['baz', 'bar'],
+        },
+    });
+
+    assert(code.indexOf('a0,b1') >= 0);
 }
 
 function noCode() {
