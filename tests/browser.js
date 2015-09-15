@@ -11,13 +11,8 @@ var read = require('./utils').read;
 
 
 module.exports = function() {
-    if(process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY) {
-        test('chrome');
-        test('firefox');
-    }
-    else {
-        console.warn('Skipping browser tests, you should set SAUCE_USERNAME and SAUCE_ACCESS_KEY');
-    }
+    test('chrome');
+    test('firefox');
 };
 
 function test(browser) {
@@ -37,7 +32,7 @@ function test(browser) {
         var splitter = s.pipe(smokestack({
                 browser: browser,
                 timeout: 15000,
-                saucelabs: true
+                saucelabs: false
             }))
             .pipe(streamSplitter('\n'));
 
