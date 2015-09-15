@@ -5,16 +5,16 @@
   "version": "0.6.1",
   "dependencies": {
     "alphabet": "^1.0.0",
-    "annois": "^0.3.0",
-    "annozip": "^0.2.4",
-    "handlebars": "^2.0.0",
+    "annois": "^0.3.2",
+    "annozip": "^0.2.6",
+    "handlebars": "^4.0.2",
     "object-merge": "^2.5.1"
   },
   "devDependencies": {
-    "localeval": "^13.12.11",
-    "requirejs": "^2.1.15",
-    "smokestack": "^3.0.0",
-    "stream-splitter": "^0.3.0"
+    "localeval": "^15.2.3",
+    "requirejs": "^2.1.20",
+    "smokestack": "^3.3.1",
+    "stream-splitter": "^0.3.2"
   },
   "repository": {
     "type": "git",
