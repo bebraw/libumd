@@ -1,7 +1,8 @@
 'use strict';
 var fs = require('fs');
 var path = require('path');
-
+var tmp = require('tmp');
+var phantom = require('phantom');
 
 exports.read = function(cb, file) {
     var p = path.join(__dirname, 'data', file || 'demo.js');
@@ -14,5 +15,31 @@ exports.read = function(cb, file) {
         }
 
         cb(data);
+    });
+};
+
+exports.runInPhantom = function(code) {
+    tmp.file(function(err, path, fd) {
+        if(err) {
+            return console.error(err);
+        }
+
+        fs.writeFile(path, code, function(err) {
+            if(err) {
+                return console.error(err);
+            }
+
+            phantom.create(function(ph) {
+                ph.createPage(function(page) {
+                    page.injectJs(path, function(ok) {
+                        if(!ok) {
+                            return console.error('Failed to inject js');
+                        }
+
+                        ph.exit();
+                    });
+                });
+            });
+        });
     });
 };
