@@ -8,8 +8,7 @@
     "annois": "^0.3.0",
     "annozip": "^0.2.4",
     "handlebars": "^2.0.0",
-    "object-merge": "^2.5.1",
-    "requirejs": "^2.1.15"
+    "object-merge": "^2.5.1"
   },
   "devDependencies": {
     "localeval": "^13.12.11",
