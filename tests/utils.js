@@ -18,7 +18,7 @@ exports.read = function(cb, file) {
     });
 };
 
-exports.runInPhantom = function(code) {
+exports.runInPhantom = function(code, consoleCb) {
     tmp.file(function(err, path, fd) {
         if(err) {
             return console.error(err);
@@ -31,6 +31,12 @@ exports.runInPhantom = function(code) {
 
             phantom.create(function(ph) {
                 ph.createPage(function(page) {
+                    page.onConsoleMessage(consoleCb);
+
+                    page.onError(function(msg, trace) {
+                        console.error(msg, trace);
+                    });
+
                     page.injectJs(path, function(ok) {
                         if(!ok) {
                             return console.error('Failed to inject js');

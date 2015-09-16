@@ -11,6 +11,9 @@ module.exports = function() {
 
         code += '\nwindow.test();';
 
-        utils.runInPhantom(code);
+        utils.runInPhantom(code, function(msg) {
+            console.log('browser ok');
+            assert.equal(msg, 'executed');
+        });
     }, 'browser.js');
 }

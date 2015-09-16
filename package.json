@@ -13,7 +13,6 @@
   "devDependencies": {
     "localeval": "^15.2.3",
     "phantom": "^0.7.2",
-    "requirejs": "^2.1.20",
     "tmp": "0.0.27"
   },
   "repository": {

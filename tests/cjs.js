@@ -26,6 +26,8 @@ module.exports = function() {
     convertParametersToAlphabet();
 
     noCode();
+
+    console.log('cjs ok');
 };
 
 function triggered(options) {
