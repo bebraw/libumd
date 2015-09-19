@@ -26,13 +26,11 @@ module.exports = function() {
                 }
             });
             code += '\nrequire([\'testDeps\'], function(testDeps) {/* testDeps(); */});';
-            console.log('CODE:\n' + code);
-/*
+
             utils.runInPhantom(code, function(msg) {
                 console.log('amd-with-deps ok');
                 assert.equal(msg, 'executed');
             });
-*/
         }, 'with-deps.js');
     }, 'browser.js');
 }
