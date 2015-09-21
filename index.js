@@ -75,10 +75,22 @@ UMD.prototype.generate = function generate() {
 
     for (dependencyType in depsOptions) {
         dependency = depsOptions[dependencyType];
+
         items = dependency.items || defaultDeps || [];
+
+        // extract possible dependency names for objects
+        items = items.map(function(item) {
+            if(is.object(item)) {
+                return Object.keys(item)[0];
+            }
+
+            return item;
+        });
+
         prefix = dependency.prefix || '';
         separator = dependency.separator || ', ';
         suffix = dependency.suffix || '';
+
         ctx[dependencyType + 'Dependencies'] = {
             normal: items,
             params: convertToAlphabet(items),
@@ -86,7 +98,18 @@ UMD.prototype.generate = function generate() {
         };
     }
 
-    ctx.dependencies = deps.join(', ');
+    // supports ['dependency'] and [{dependency: 'functionParameter'}]
+    ctx.dependencies = deps.map(function(dep) {
+        if(is.string(dep)) {
+            return dep;
+        }
+
+        if(is.object(dep)) {
+            return dep[Object.keys(dep)[0]];
+        }
+    }).filter(id).join(', ');
+
+    deps.join(', ');
 
     ctx.code = code;
 
@@ -155,3 +178,5 @@ module.exports = function(code, options) {
 
     return u.generate();
 };
+
+function id(a) {return a;}
