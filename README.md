@@ -12,23 +12,26 @@ var umdify = require('libumd');
 var result = umdify(js, options);
 ```
 
-options (all are optional by default):
+> `libumd` doesn't guarantee pretty formatting. It is better to use something like [js-beautify](https://www.npmjs.com/package/js-beautify) to deal with that.
+
+## Options
 
 ```js
 {
     template: 'path to template or template name', // defaults to 'umd'
     amdModuleId: 'test', // optional AMD module id. defaults to anonymous (not set)
     globalAlias: 'alias', // name of the global variable
-    deps: { // dependencies - `default` acts as a fallback for each!
-        'default': ['foo', 'bar'],
-        amd: ['foobar', 'barbar'],
-        cjs: ['foo', 'barbar'],
-        global: ['foobar', {depName: 'param'}]
+    deps: { // dependencies
+        // use default only if the module name and the variable the module will be injected with is the same
+        'default': ['Foo', 'Bar'],
+        // additionally define these if the module name differs from the variable with which it will be used
+        amd: ['foo', 'bar'],
+        cjs: ['foo', 'bar']
     }
 }
 ```
 
-> Note! `libumd` doesn't guarantee pretty formatting. It is better to use something like [js-beautify](https://www.npmjs.com/package/js-beautify) to deal with that.
+> Check out the [`demo.js`](https://github.com/bebraw/libumd/blob/master/demo.js)
 
 ## Default Templates
 
