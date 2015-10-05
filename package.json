@@ -2,7 +2,7 @@
   "name": "libumd",
   "description": "Wraps given JavaScript code with UMD",
   "author": "Juho Vepsalainen <bebraw@gmail.com>",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "dependencies": {
     "alphabet": "^1.0.0",
     "annois": "^0.3.2",
