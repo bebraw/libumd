@@ -25,7 +25,8 @@ var result = umdify(js, options);
         // use default only if the module name and the variable the module will be injected with is the same
         'default': ['Foo', 'Bar'],
         // additionally define these if the module name differs from the variable with which it will be used
-        amd: ['foo', 'bar'],
+        // note how we can map dependencies to specific parameters
+        amd: ['foo', {'lodash': '_'}],
         cjs: ['foo', 'bar']
     }
 }
