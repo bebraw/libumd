@@ -35,7 +35,7 @@ var result = umdify(js, options);
 
 ## Default Templates
 
-The library comes with a couple of UMD variants. See `/templates`. In addition you may use one of your own as long as it is formatted using Handlebars syntax and follows the same naming conventions as the ones provided with the project.
+The library comes with a couple of UMD variants at `/templates`. In addition you may use one of your own as long as it is formatted using Handlebars syntax and follows the same naming conventions as the ones provided with the project.
 
 ## Testing
 
@@ -43,7 +43,8 @@ Make sure [PhantomJS](http://phantomjs.org/) is installed and it's within your P
 
 ## Contributors
 
-* [Stéphane Bachelier](https://github.com/stephanebachelier) - Use existing `objectToExport` instead of hardcoded value `returnExportsGlobal` for AMD
+* [Stéphane Bachelier](https://github.com/stephanebachelier) - Use existing `objectToExport` instead of hardcoded value `returnExportsGlobal` for AMD.
+* [Simon Harte](https://github.com/SimonHarte) - Made the documentation clearer about the correct usage.
 
 ## License
 
