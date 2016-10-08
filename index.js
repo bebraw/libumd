@@ -92,7 +92,7 @@ UMD.prototype.generate = function generate() {
         suffix = dependency.suffix || '';
 
         ctx[dependencyType + 'Dependencies'] = {
-            normal: items,
+            normal: items.map(function(item){ return 'root["' + item + '"]'; }),
             params: convertToAlphabet(items),
             wrapped: items.map(wrap(prefix, suffix)).join(separator),
         };
