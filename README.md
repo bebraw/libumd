@@ -46,6 +46,7 @@ Make sure [PhantomJS](http://phantomjs.org/) is installed and it's within your P
 
 * [Stéphane Bachelier](https://github.com/stephanebachelier) - Use existing `objectToExport` instead of hardcoded value `returnExportsGlobal` for AMD.
 * [Simon Harte](https://github.com/SimonHarte) - Made the documentation clearer about the correct usage.
+* [Valerii Zinchenko](https://github.com/valerii-zinchenko) - Allowed dependency name to contain a dash. #17
 
 ## License
 
