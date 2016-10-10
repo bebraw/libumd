@@ -115,7 +115,7 @@ function useDefault() {
 
     assert(code.indexOf('define(["' + dep + '"]') >= 0);
     assert(code.indexOf('factory(require("' + dep + '"))') >= 0);
-    assert(code.indexOf('factory(' + dep + ')') >= 0);
+    assert(code.indexOf('factory(root["' + dep + '"])') >= 0);
 }
 
 function preserveDefault() {
@@ -129,7 +129,7 @@ function preserveDefault() {
 
     assert(code.indexOf('define(["baz","bar"], function (a0,b1) {') >= 0);
     assert(code.indexOf('factory(require("' + dep + '"))') >= 0);
-    assert(code.indexOf('factory(' + dep + ')') >= 0);
+    assert(code.indexOf('factory(root["' + dep + '"])') >= 0);
 }
 
 function convertParametersToAlphabet() {
