@@ -29,23 +29,29 @@ exports.runInPhantom = function(code, consoleCb) {
                 return console.error(err);
             }
 
-            phantom.create(function(ph) {
-                ph.createPage(function(page) {
-                    page.onConsoleMessage(consoleCb);
+            var phInstance;
 
-                    page.onError(function(msg, trace) {
-                        console.error(msg, trace);
-                    });
+            phantom.create().then(function(instance) {
+                phInstance = instance;
 
-                    page.injectJs(path, function(ok) {
-                        if(!ok) {
-                            return console.error('Failed to inject js');
-                        }
+                return instance.createPage();
+            }).then(function(page) {
+                page.property('onConsoleMessage', consoleCb);
 
-                        ph.exit();
-                    });
+                page.injectJs(path, function(ok) {
+                    if(!ok) {
+                        return console.error('Failed to inject js');
+                    }
                 });
-            });
+
+                return page;
+            }).then(function() {
+                phInstance.exit();
+            }).catch(function(err) {
+                console.error(err);
+
+                phInstance.exit();
+            })
         });
     });
 };

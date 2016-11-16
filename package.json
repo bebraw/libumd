@@ -12,8 +12,8 @@
   },
   "devDependencies": {
     "localeval": "^15.2.3",
-    "phantom": "^0.7.2",
-    "tmp": "0.0.27"
+    "phantom": "^3.0.3",
+    "tmp": "0.0.30"
   },
   "repository": {
     "type": "git",
