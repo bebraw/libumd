@@ -2,12 +2,12 @@
 
 (function(factory) {
   /* jshint undef: true */
-  if (typeof define === "function" && define.amd) {
+  if (typeof define === 'function' && define.amd) {
     define({{#if amdModuleId}}'{{amdModuleId}}', {{/if}}[
       {{{amdDependencies.wrapped}}}
     ], factory);
   }
-  else if (typeof module !== "undefined" && module.exports) {
+  else if (typeof module === 'object' && module.exports) {
     module.exports = factory(
       {{{cjsDependencies.wrapped}}});
   }

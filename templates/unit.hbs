@@ -1,6 +1,6 @@
 {{! UMD template that can be useful to wrap standalone CommonJS/Node modules}}
 (function(root, factory) {
-    if(typeof exports === 'object') {
+    if(typeof module === 'object' && module.exports) {
         module.exports = factory({{#if cjsDependencies.wrapped}}{{{cjsDependencies.wrapped}}}, {{/if}}require, exports, module);
     }
     else if(typeof define === 'function' && define.amd) {

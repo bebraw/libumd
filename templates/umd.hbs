@@ -4,7 +4,7 @@
     define({{#if amdModuleId}}'{{amdModuleId}}', {{/if}}[{{{amdDependencies.wrapped}}}], function ({{{amdDependencies.params}}}) {
       return ({{#if objectToExport}}root['{{{objectToExport}}}'] = {{/if}}factory({{{amdDependencies.params}}}));
     });
-  } else if (typeof exports === 'object') {
+  } else if (typeof module === 'object' && module.exports) {
     // Node. Does not work with strict CommonJS, but
     // only CommonJS-like environments that support module.exports,
     // like Node.

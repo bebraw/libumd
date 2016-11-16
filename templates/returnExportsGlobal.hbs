@@ -22,7 +22,7 @@
         define({{#if amdModuleId}}'{{amdModuleId}}', {{/if}}[{{{amdDependencies.wrapped}}}], function ({{dependencies}}) {
             return ({{#if globalAlias}} root['{{{globalAlias}}}'] = {{/if}}factory({{dependencies}}));
         });
-    } else if (typeof exports === 'object') {
+    } else if (typeof module === 'object' && module.exports) {
         {{!--
             Node. Does not work with strict CommonJS, but
             only CommonJS-like enviroments that support module.exports,
@@ -33,7 +33,7 @@
 
         {{! FIX FOR BROWSERIFY: Set global alias if we in browserify. }}
         {{#if globalAlias}}
-          if(typeof window !== "undefined"){
+          if(typeof window !== 'undefined'){
               window['{{{globalAlias}}}'] = module_exports;
           }
         {{/if}}
