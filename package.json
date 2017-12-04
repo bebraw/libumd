@@ -26,8 +26,6 @@
   "scripts": {
     "test": "node tests"
   },
-  "keywords": [
-    "umd"
-  ],
+  "keywords": ["umd"],
   "license": "MIT"
 }
