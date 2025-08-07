@@ -13,7 +13,7 @@
   "devDependencies": {
     "localeval": "^15.2.3",
     "phantom": "^3.0.3",
-    "tmp": "0.0.30"
+    "tmp": "0.2.4"
   },
   "repository": {
     "type": "git",
